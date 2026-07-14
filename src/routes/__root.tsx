@@ -12,8 +12,6 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { brand } from "../lib/brand";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import raselLogo from "../assets/rasel-logo.png.asset.json";
-
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -92,8 +90,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: raselLogo.url, type: "image/png" },
-      { rel: "apple-touch-icon", href: raselLogo.url },
+      { rel: "icon", href: "/rasel-logo.svg", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", href: "/rasel-logo.svg" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {

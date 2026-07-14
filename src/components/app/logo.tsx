@@ -1,11 +1,10 @@
 import { brand } from "@/lib/brand";
-import raselLogo from "@/assets/rasel-logo.png.asset.json";
 
 export function Logo({ size = 72, showWordmark = false }: { size?: number; showWordmark?: boolean }) {
   return (
     <div className="flex items-center gap-2">
       <img
-        src={raselLogo.url}
+        src="/rasel-logo.svg"
         alt={`${brand.name} — ${brand.nameEn}`}
         style={{ height: size, width: "auto" }}
         className="object-contain drop-shadow-sm"
