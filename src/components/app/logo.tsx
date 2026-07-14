@@ -4,7 +4,7 @@ export function Logo({ size = 72, showWordmark = false }: { size?: number; showW
   return (
     <div className="flex items-center gap-2">
       <img
-        src="/rasel-logo.svg"
+        src="/rasel-logo.png"
         alt={`${brand.name} — ${brand.nameEn}`}
         style={{ height: size, width: "auto" }}
         className="object-contain drop-shadow-sm"
