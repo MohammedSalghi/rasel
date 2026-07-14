@@ -1,0 +1,54 @@
+########################################################################
+# Netlify configuration — مصرف النوران / Al-Nouran Bank
+# TanStack Start app deployed to Netlify via the Nitro `netlify` preset.
+########################################################################
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+  # `dist` is Nitro's public output when using the `netlify` preset.
+  # The SSR handler is emitted to `.netlify/functions-internal/server.mjs`
+  # and wired automatically by the Netlify build plugin below.
+
+[build.environment]
+  NODE_VERSION = "20"
+  # Nitro reads this to switch build target away from Cloudflare.
+  NITRO_PRESET = "netlify"
+
+########################################################################
+# SPA-style fallback.
+# If the app is ever built in pure-client mode (no SSR handler), this
+# rewrite ensures deep links still resolve to the client bundle.
+# When SSR is active the Netlify function takes precedence and this
+# rewrite is a harmless no-op for HTML routes.
+########################################################################
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+########################################################################
+# Long-cache the immutable Vite asset bundle. HTML stays uncached so
+# users always get the newest deploy.
+########################################################################
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+########################################################################
+# Baseline security headers. Tighten CSP once third-party domains
+# (analytics, payment provider, etc.) are finalised.
+########################################################################
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
